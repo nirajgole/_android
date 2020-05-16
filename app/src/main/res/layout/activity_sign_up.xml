@@ -14,12 +14,14 @@
         app:srcCompat="@drawable/ic_trophy" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/dimen_64x"
         android:paddingRight="@dimen/dimen_64x">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameEditTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
@@ -28,12 +30,14 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/dimen_64x"
         android:paddingRight="@dimen/dimen_64x">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEditTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -41,6 +45,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTextInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/dimen_64x"
@@ -48,6 +53,7 @@
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passwordEditTextView"
             android:layout_width="286dp"
             android:layout_height="wrap_content"
             android:hint="Password"
@@ -56,6 +62,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/registerAppCompactButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

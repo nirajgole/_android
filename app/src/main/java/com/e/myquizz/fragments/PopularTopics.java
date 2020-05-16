@@ -6,14 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.e.myquizz.R;
+import com.e.myquizz.adapter.TopicAdapter;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link PopularTopics#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class PopularTopics extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,18 +31,13 @@ public class PopularTopics extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    FirebaseDatabase mFirebaseDatabase;
+
+    RecyclerView mRecyclerView;
     public PopularTopics() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PopularTopics.
-     */
     // TODO: Rename and change types and number of parameters
     public static PopularTopics newInstance(String param1, String param2) {
         PopularTopics fragment = new PopularTopics();
@@ -60,5 +62,55 @@ public class PopularTopics extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_popular_topics, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mFirebaseDatabase=FirebaseDatabase.getInstance();
+
+        mRecyclerView=getView().findViewById(R.id.popularTopicRecyclerView);
+
+        ArrayList<String> mArrayList = new ArrayList<>();
+//        mArrayList.add("Logos Quiz");
+//        mArrayList.add("Food & Drink");
+//        mArrayList.add("Movies");
+
+        final TopicAdapter topicAdapter = new TopicAdapter(getContext(), mArrayList);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setAdapter(topicAdapter);
+
+        mFirebaseDatabase.getReference("myQuizz").child("topics").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+//                String key = dataSnapshot.getKey();
+//                Log.d(TAG,key);
+
+                String topicName= dataSnapshot.getValue(String.class);
+                topicAdapter.addTopic(topicName);
+                topicAdapter.notifyItemInserted(topicAdapter.getItemCount());
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

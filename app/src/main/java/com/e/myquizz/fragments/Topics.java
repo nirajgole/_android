@@ -11,17 +11,14 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Topics#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Topics extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,14 +33,6 @@ public class Topics extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Topics.
-     */
     // TODO: Rename and change types and number of parameters
     public static Topics newInstance(String param1, String param2) {
         Topics fragment = new Topics();
@@ -78,21 +67,21 @@ public class Topics extends Fragment {
         ViewPager viewPager = context.findViewById(R.id.viewPager);
 
         CustomPagerAdapter pagerAdapter = new CustomPagerAdapter(getChildFragmentManager());
-        pagerAdapter.addFragment(new AllTopic(),"All Topics");
         pagerAdapter.addFragment(new PopularTopics(),"Popular Topics");
+        pagerAdapter.addFragment(new AllTopic(),"All Topics");
+
 
         viewPager.setAdapter(pagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
     }
 
-    public class CustomPagerAdapter extends FragmentPagerAdapter{
+    public static class CustomPagerAdapter extends FragmentPagerAdapter{
 
         public ArrayList<Fragment> mFragments = new ArrayList<>();
         public ArrayList<String> mFragmentTitles = new ArrayList<>();
 
-
-        public CustomPagerAdapter(FragmentManager fm) {
+        public CustomPagerAdapter(@NonNull FragmentManager fm) {
             super(fm);
         }
 
@@ -102,10 +91,7 @@ public class Topics extends Fragment {
             mFragmentTitles.add(title);
         }
 
-        //generated functions
-//        public CustomPagerAdapter(@NonNull FragmentManager fm, int behavior) {
-//            super(fm, behavior);
-//        }
+
         @Override
         public Fragment getItem(int position) {
             return mFragments.get(position);

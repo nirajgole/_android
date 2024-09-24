@@ -1,0 +1,5 @@
+<<<<<<< HEAD
+=======
+rootProject.name='MyQuizz'
+>>>>>>> mq/master
+include ':app'
